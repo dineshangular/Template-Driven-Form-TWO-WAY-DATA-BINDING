@@ -1,0 +1,72 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-6" class="formContainer">
+        <div class="jumbotron">
+        <h3>Template Driven Form</h3>
+        <form name="form" #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit()" novalidate>
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" name="firstname" [(ngModel)]="model.firstname" 
+            #firstname="ngModel"
+            [ngClass]="{'is-invalid':userForm.submitted && firstname.invalid}" required>
+          </div>
+          <div *ngIf="userForm.submitted && firstname.invalid" class="invalid-feedback">
+            <div>Firstname is required !</div>
+          </div>
+          <div class="form-group">
+              <label for="lastname">Last Name</label>
+              <input type="text" class="form-control" name="lastname" [(ngModel)]="model.lastname"
+              #lastname="ngModel"  
+              [ngClass]="{'is-invalid':userForm.submitted && lastname.invalid}" required>
+            </div>
+            <div *ngIf="userForm.submitted && lastname.invalid" class="invalid-feedback">
+              <div>Lastname is required !</div>
+            </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" class="form-control" [(ngModel)]="model.email"
+            #email="ngModel"  
+            [ngClass]="{'is-invalid':userForm.submitted && email.invalid}" required>
+          </div>
+          <div *ngIf="userForm.submitted && email.invalid" class="invalid-feedback">
+            <div *ngIf="email.errors.required">Email is required !</div>
+            <div *ngIf="email.errors.email">Must be valid email required !</div>
+          </div>
+          <div class="form-group">
+              <label for="password">Password</label>
+              <input type="text" name="password" class="form-control" [(ngModel)]="model.password"  
+              minlength="6" #password="ngModel"
+              [ngClass]="{'is-invalid':userForm.submitted && password.invalid}" required>
+          </div>
+          <div *ngIf="userForm.submitted && email.invalid" class="invalid-feedback">
+              <div *ngIf="password.errors.required">Email is required !</div>
+              <div *ngIf="password.errors.minlength">Must be atleast 6 characters</div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary">SUBMIT</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-6" class="formContainer">
+      <h3>JSON Return Format</h3>
+      <table class="table table-dark">
+        <thead>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Password</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ model.firstname | json }}</td>
+            <td>{{ model.lastname | json }}</td>
+            <td>{{ model.email | json }}</td>
+            <td>{{ model.password | json }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
